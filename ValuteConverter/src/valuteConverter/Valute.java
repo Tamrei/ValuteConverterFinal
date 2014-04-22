@@ -1,0 +1,39 @@
+package valuteConverter;
+
+public class Valute {
+	
+	private String valuteRate;
+	private String valuteName;
+	private String valuteCode;
+
+	public String getValuteCode() {
+		return valuteCode;
+	}
+
+	public void setValuteCode(String valuteCode) {
+		this.valuteCode = valuteCode;
+	}
+
+	/*public Valute(String valuteName) {
+		this.valuteName = valuteName;
+	}*/ // + default constructor 
+
+	public String getValueRate() {
+		return valuteRate;
+	}
+
+	public void setValueRate(String valueRate) {
+		this.valuteRate = valueRate;
+	}
+
+	public String getValuteName() {
+		return valuteName;
+	}
+
+	public void setValuteName(String valueName) {
+		this.valuteName = valueName;
+	}
+	
+
+
+}
