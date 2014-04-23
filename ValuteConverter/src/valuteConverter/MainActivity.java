@@ -1,5 +1,6 @@
 package valuteConverter;
 
+
 import gen.valuteConverter.R;
 
 import java.net.URL;
@@ -14,6 +15,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
+
+
+
+
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -45,12 +51,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	Spinner spinner, spinner2;
 
-	StringBuilder str = new StringBuilder();
+	private StringBuilder editText1String = new StringBuilder();
 
 	List<Valute> valuteList = new ArrayList<Valute>();
-	
+
 	List<ValuteSpinnerModel> spinnerList = new ArrayList<ValuteSpinnerModel>();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,7 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		button1 = (Button) findViewById(R.id.button1);
 		button1.setOnClickListener(this);
-		
+
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(this);
 
@@ -98,18 +104,19 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		editText2 = (EditText) findViewById(R.id.editText2);
 		editText2.setOnClickListener(this);
-
-		new PostAsync().execute();
+	
 
 		spinner = (Spinner) findViewById(R.id.spinner1);
 
 		spinner2 = (Spinner) findViewById(R.id.spinner2);
+		
+		new PostAsync().execute();
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View view,
-					int arg2, long arg3) {	
-				
+					int arg2, long arg3) {
+
 				if (!(editText1.getText().toString().length() == 0)) {
 					Convert();
 				} else {
@@ -125,8 +132,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View view,
-					int arg2, long arg3) {		
-				
+					int arg2, long arg3) {
+
 				if (!(editText1.getText().toString().length() == 0)) {
 					Convert();
 				} else {
@@ -142,13 +149,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void Convert() {
-		
+
 		String firstSpinnerValuteRate = null;
 		String secondSpinnerValuteRate = null;
 		String mainSpinnerValue = null;
-		
+
 		for (int i = 0; i < valuteList.size(); i++) {
-			
+
 			if (valuteList.get(i).getValuteName()
 					.equals(spinner.getSelectedItem().toString())) {
 				firstSpinnerValuteRate = valuteList.get(i).getValueRate();
@@ -160,49 +167,63 @@ public class MainActivity extends Activity implements OnClickListener {
 				secondSpinnerValuteRate = valuteList.get(i).getValueRate();
 			}
 		}
-		
 
-		editText2.setText(String.valueOf((Float.parseFloat(firstSpinnerValuteRate) / Float.parseFloat(secondSpinnerValuteRate) * Float.parseFloat(mainSpinnerValue))));		
+		editText2.setText(String.valueOf((Float
+				.parseFloat(firstSpinnerValuteRate)
+				/ Float.parseFloat(secondSpinnerValuteRate) * Float
+				.parseFloat(mainSpinnerValue))));
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
 
-		case R.id.button1: insert("1");
+		case R.id.button1:
+			insert("1");
 			break;
 
-		case R.id.button2: insert("2");
+		case R.id.button2:
+			insert("2");
 			break;
 
-		case R.id.button3: insert("3");
+		case R.id.button3:
+			insert("3");
 			break;
 
-		case R.id.button4: insert("4");
+		case R.id.button4:
+			insert("4");
 			break;
 
-		case R.id.button5: insert("5");
+		case R.id.button5:
+			insert("5");
 			break;
 
-		case R.id.button6: insert("6");
+		case R.id.button6:
+			insert("6");
 			break;
 
-		case R.id.button7: insert("7");
+		case R.id.button7:
+			insert("7");
 			break;
 
-		case R.id.button8: insert("8");
+		case R.id.button8:
+			insert("8");
 			break;
 
-		case R.id.button9: insert("9");
+		case R.id.button9:
+			insert("9");
 			break;
 
-		case R.id.button0: insert("0");
+		case R.id.button0:
+			insert("0");
 			break;
 
-		case R.id.buttonC: clear();
+		case R.id.buttonC:
+			clear();
 			break;
 
-		case R.id.buttonPimp: insertPimp();
+		case R.id.buttonPimp:
+			insertPimp();
 			break;
 
 		default:
@@ -212,56 +233,56 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void insert(String s) {
-		str.append(s);
-		editText1.setText(String.valueOf(str));
+		editText1String.append(s);
+		editText1.setText(String.valueOf(editText1String));
 		Convert();
 	}
 
 	private void insertPimp() {
 		if (!(editText1.getText().toString().contains("."))) {
-			str.append(".");
-			editText1.setText(str);
+			editText1String.append(".");
+			editText1.setText(editText1String);
 		}
 
-		if (str.substring(0, 1).equals(".")) { 
-			str.insert(0, "0");
-			editText1.setText(str);
+		if (editText1String.substring(0, 1).equals(".")) {
+			editText1String.insert(0, "0");
+			editText1.setText(editText1String);
 		}
 	}
 
 	private void clear() {
-		if (str.length() > 1) {
-			str.delete((str.length() - 1), str.length());
-			editText1.setText(str);
+		if (editText1String.length() > 1) {
+			editText1String.delete((editText1String.length() - 1), editText1String.length());
+			editText1.setText(editText1String);
 		} else {
-			str.delete(0, str.length());
+			editText1String.delete(0, editText1String.length());
 			editText1.setText("0");
 		}
 		Convert();
 
 	}
 
-
 	class PostAsync extends AsyncTask<Void, Void, Void> {
 		ProgressDialog pd;
-		
-		MySpinner mySpinner = new MySpinner(MainActivity.this, R.layout.spinner_row, getLayoutInflater(), spinnerList);
-		
+
+		MySpinner mySpinner = new MySpinner(MainActivity.this,
+				R.layout.spinner_row, getLayoutInflater(), spinnerList);
+
 		@Override
 		protected void onPreExecute() {
-			
-			pd = ProgressDialog.show(MainActivity.this, "Отримання курсу валют",
-					"Зачекайте ...", true, false);
-			
+
+			pd = ProgressDialog.show(MainActivity.this,
+					"Отримую курс валют", "Зачекайте ...", true, false);
+
 			Valute grn = new Valute();
-			grn.setValuteCode("GRN");
 			grn.setValueRate("1");
 			grn.setValuteName("гривня");
-			
+
 			valuteList.add(grn);
 
-			spinnerList.add(new ValuteSpinnerModel(grn.getValuteName(), grn.getValueRate(), R.drawable.ukraine));
-		
+			spinnerList.add(new ValuteSpinnerModel(grn.getValuteName(), grn
+					.getValueRate(), R.drawable.ukraine));
+
 		}
 
 		@Override
@@ -270,7 +291,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			try {
 
 				URL url = new URL("http://bank-ua.com/export/currrate.xml");
-				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				DocumentBuilderFactory dbf = DocumentBuilderFactory
+						.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();
 				Document doc = db.parse(new InputSource(url.openStream()));
 				doc.getDocumentElement().normalize();
@@ -299,99 +321,79 @@ public class MainActivity extends Activity implements OnClickListener {
 					Element sizeElement = (Element) sizeList.item(0);
 					sizeList = sizeElement.getChildNodes();
 
-					String o = charList.item(0).getNodeValue();
-
-
-					if (o.equals("USD")) {
-						//addValuteObjectToArray(o, sizeList, rateList, nameList,
-						//		1);
-						
-						Test(o, sizeList, rateList, nameList, R.drawable.united);
-						
-						spinnerList.add(new ValuteSpinnerModel(nameList.item(0).getNodeValue(), String.valueOf(Float.parseFloat(rateList.item(0)
-								.getNodeValue())
-								/ Float.parseFloat(sizeList.item(0).getNodeValue())), R.drawable.united));
-
+					if (charList.item(0).getNodeValue().equals("USD")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.united);
 					}
 
-					if (o.equals("EUR")) {	
-						//addValuteObjectToArray(o, sizeList, rateList, nameList,
-						//		2);
-						
-						Test(o, sizeList, rateList, nameList, R.drawable.euro);
-						
-						/*spinnerList.add(new ValuteSpinnerModel(nameList.item(0).getNodeValue(), String.valueOf(Float.parseFloat(rateList.item(0)
-								.getNodeValue())
-								/ Float.parseFloat(sizeList.item(0).getNodeValue())), R.drawable.euro));*/
+					if (charList.item(0).getNodeValue().equals("EUR")) {
+						addValute(sizeList, rateList, nameList, R.drawable.euro);
 					}
 
-					if (o.equals("BYR")) {
-						//addValuteObjectToArray(o, sizeList, rateList, nameList,
-						//		3);
-						
-						//Test(o, sizeList, rateList, nameList, R.drawable.belarus);
+					if (charList.item(0).getNodeValue().equals("BYR")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.belarus);
 					}
 
-					/*if (o.equals("RUB")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								4);
+					if (charList.item(0).getNodeValue().equals("RUB")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.russia);
 					}
 
-					if (o.equals("GBP")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								5);					}
-
-					if (o.equals("JPY")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								6);
+					if (charList.item(0).getNodeValue().equals("GBP")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.unitedkingdom);
 					}
 
-					if (o.equals("CNY")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								7);
+					if (charList.item(0).getNodeValue().equals("JPY")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.japan);
 					}
 
-					if (o.equals("PLN")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								8);
+					if (charList.item(0).getNodeValue().equals("CNY")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.china);
 					}
-					
-					if (o.equals("CAD")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								9);
+
+					if (charList.item(0).getNodeValue().equals("PLN")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.poland);
 					}
-					
-					if (o.equals("ISK")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								10);
+
+					if (charList.item(0).getNodeValue().equals("CAD")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.canada);
 					}
-					
-					if (o.equals("SEK")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								11);
+
+					if (charList.item(0).getNodeValue().equals("ISK")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.spain);
 					}
-					
-					if (o.equals("CZK")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								12);
+
+					if (charList.item(0).getNodeValue().equals("SEK")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.shveden);
 					}
-					
-					if (o.equals("LTL")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								13);
+
+					if (charList.item(0).getNodeValue().equals("CZK")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.czech);
 					}
-					
-					if (o.equals("DKK")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								14);
+
+					if (charList.item(0).getNodeValue().equals("LTL")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.litva);
 					}
-					
-					if (o.equals("KZT")) {
-						addValuteObjectToArray(o, sizeList, rateList, nameList,
-								15);
-					}*/
-					
-					
+
+					if (charList.item(0).getNodeValue().equals("DKK")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.dackiy);
+					}
+
+					if (charList.item(0).getNodeValue().equals("KZT")) {
+						addValute(sizeList, rateList, nameList,
+								R.drawable.kazakhstan);
+					}
 
 				}
 
@@ -403,59 +405,28 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			
+
 			spinner.setAdapter(mySpinner);
 			spinner2.setAdapter(mySpinner);
 
 			pd.dismiss();
-			
-			
-
 		}
 
 	}
 
-	private void addValuteObjectToArray(String o, NodeList sizeList,
-			NodeList rateList, NodeList nameList, int i) {
-		Valute valute = new Valute();
-		valute.setValuteCode(o);
-		valute.setValueRate(String.valueOf(Float.parseFloat(rateList.item(0)
-				.getNodeValue())
-				/ Float.parseFloat(sizeList.item(0).getNodeValue())));
-		valute.setValuteName(nameList.item(0).getNodeValue());
-		valuteList.add(valute);
+	private void addValute(NodeList sizeList, NodeList rateList,
+			NodeList nameList, int imageId) {
 
-		//spinnerValues[i] = valute.getValuteName();            //native
-		//spinnerSubValues[i] = valute.getValueRate();
-	}
-	
-	
-	public void Test(String valuteCode, NodeList sizeList,
-			NodeList rateList, NodeList nameList, int imageId) {
-		
 		Valute valute = new Valute();
-		valute.setValuteCode(valuteCode);
 		valute.setValueRate(String.valueOf(Float.parseFloat(rateList.item(0)
 				.getNodeValue())
 				/ Float.parseFloat(sizeList.item(0).getNodeValue())));
 		valute.setValuteName(nameList.item(0).getNodeValue());
 		valuteList.add(valute);
 		
-		spinnerList.add(new ValuteSpinnerModel(valute.getValuteName(), valute.getValueRate(), imageId));
 		
+		spinnerList.add(new ValuteSpinnerModel(valute.getValuteName(), valute
+				.getValueRate(), imageId));
+
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

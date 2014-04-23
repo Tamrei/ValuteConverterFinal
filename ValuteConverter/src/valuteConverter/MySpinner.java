@@ -1,8 +1,13 @@
 package valuteConverter;
 
+import gen.valuteConverter.R;
+
 import java.util.List;
 
-import gen.valuteConverter.R;
+
+
+
+import valuteConverter.ValuteSpinnerModel;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +18,9 @@ import android.widget.TextView;
 
 public class MySpinner extends ArrayAdapter<ValuteSpinnerModel> {
 
-	List<ValuteSpinnerModel> spinnerList;	
+	private List<ValuteSpinnerModel> spinnerList;	
 	
-	LayoutInflater inflater;
+	private LayoutInflater inflater;
 	
 	public MySpinner(Context ctx, int t, LayoutInflater inflater, List<ValuteSpinnerModel> spinnerList) {
 		super(ctx, t, spinnerList);

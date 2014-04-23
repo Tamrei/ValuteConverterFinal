@@ -7,7 +7,7 @@ public class ValuteSpinnerModel {
 	private int image;
 
 	public ValuteSpinnerModel(String value, String subValue, int image) {
-		// super();
+		
 		this.value = value;
 		this.subValue = subValue;
 		this.image = image;
